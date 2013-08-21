@@ -1,0 +1,24 @@
+PATH
+  remote: .
+  specs:
+    toto (0.4.9)
+      builder
+      rack
+      rdiscount
+      riot
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    builder (3.2.2)
+    rack (1.5.2)
+    rdiscount (2.1.6)
+    riot (0.12.6)
+      rr
+    rr (1.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  toto!
