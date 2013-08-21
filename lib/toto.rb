@@ -256,6 +256,26 @@ module Toto
       markdown(sum.length == self[:body].length ? sum : sum.strip.sub(/\.\Z/, '&hellip;'))
     end
 
+    def reading_time
+      word_count = self[:body].split.length
+      total_time = word_count / @config[:reading_wpm].to_f
+
+      minutes = total_time.to_i
+      min_title = "minute"
+      min_title << 's' if minutes > 1
+
+      seconds = ((total_time.modulo(1) * 0.60).round(2)) * 100
+      seconds = seconds.to_i
+      sec_title = "second"
+      sec_title << 's' if seconds == 0 || seconds > 1
+
+      reading_time = ""
+      if minutes > 0
+        reading_time = "#{minutes} #{min_title} and "
+      end
+      reading_time << "#{seconds.to_s.gsub("0.", "")} #{sec_title}"
+    end
+
     def url
       "http://#{(@config[:url].sub("http://", '') + self.path).squeeze('/')}"
     end
@@ -286,6 +306,7 @@ module Toto
       :date => lambda {|now| now.strftime("%d/%m/%Y") },    # date function
       :markdown => :smart,                                  # use markdown
       :disqus => false,                                     # disqus name
+      :reading_wpm => 200,                                  # average reading time in words per minute
       :summary => {:max => 150, :delim => /~\n/},           # length of summary and delimiter
       :ext => 'txt',                                        # extension for articles
       :cache => 28800,                                      # cache duration (seconds)
