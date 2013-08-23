@@ -158,6 +158,20 @@ module Toto
         @config[:title]
       end
 
+      def next_page_url
+        current = article.url
+        all = @articles.map(&:url)
+        nxt = (all.index(current) + 1)
+        next_page_url = (@articles[nxt].nil? ? @articles[0].path : @articles[nxt].path)
+      end
+
+      def previous_page_url
+        current = article.url
+        all = @articles.map(&:url)
+        prv = (all.index(current) - 1)
+        previous_page_url = @articles[prv] ? @articles[prv].path : "/"
+      end
+
       def render page, type
         content = to_html page, @config
         type == :html ? to_html(:layout, @config, &Proc.new { content }) : send(:"to_#{type}", page)
