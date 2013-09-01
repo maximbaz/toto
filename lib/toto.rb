@@ -274,20 +274,15 @@ module Toto
       word_count = self[:body].split.length
       total_time = word_count / @config[:reading_wpm].to_f
 
-      minutes = total_time.to_i
-      min_title = "minute"
-      min_title << 's' if minutes > 1
-
-      seconds = ((total_time.modulo(1) * 0.60).round(2)) * 100
-      seconds = seconds.to_i
-      sec_title = "second"
-      sec_title << 's' if seconds == 0 || seconds > 1
+      minute = total_time.to_i
+      min_title = "min read"
 
       reading_time = ""
-      if minutes > 0
-        reading_time = "#{minutes} #{min_title} and "
+      if minute > 0
+        reading_time = "#{minute} #{min_title}"
+      else
+        reading_time = "Less than 1 #{min_title}"
       end
-      reading_time << "#{seconds.to_s.gsub("0.", "")} #{sec_title}"
     end
 
     def url
