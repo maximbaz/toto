@@ -298,10 +298,11 @@ module Toto
       "/#{@config[:prefix]}#{self[:date].strftime("/%Y/%m/%d/#{slug}/")}".squeeze('/')
     end
 
-    def title()   self[:title] || "an article"               end
-    def date()    @config[:date].call(self[:date])           end
-    def author()  self[:author] || @config[:author]          end
-    def to_html() self.load; super(:article, @config)        end
+    def title()      self[:title] || "an article"               end
+    def date()       @config[:date].call(self[:date])           end
+    def date_utc()   self[:date].strftime("%Y-%m-%d")           end
+    def author()     self[:author] || @config[:author]          end
+    def to_html()    self.load; super(:article, @config)        end
     alias :to_s to_html
   end
 
