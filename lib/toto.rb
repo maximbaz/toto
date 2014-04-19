@@ -158,18 +158,18 @@ module Toto
         @config[:title]
       end
 
-      def next_page_url
+      def next_article
         current = article.url
         all = @articles.map(&:url)
-        nxt = (all.index(current) + 1)
-        next_page_url = (@articles[nxt].nil? ? @articles[0].path : @articles[nxt].path)
+        idx = (all.index(current) - 1)
+        idx < 0 ? nil : @articles[idx]
       end
 
-      def previous_page_url
+      def previous_article
         current = article.url
         all = @articles.map(&:url)
-        prv = (all.index(current) - 1)
-        previous_page_url = @articles[prv] ? @articles[prv].path : "/"
+        idx = (all.index(current) + 1)
+        @articles[idx]
       end
 
       def render page, type
