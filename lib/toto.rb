@@ -5,6 +5,7 @@ require 'rack'
 require 'digest'
 require 'open-uri'
 require 'rdiscount'
+require 'securerandom'
 
 require 'builder'
 
