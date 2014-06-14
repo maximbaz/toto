@@ -367,6 +367,10 @@ module Toto
       @response['Content-Length'] = response[:body].bytesize.to_s unless response[:body].empty?
       @response['Content-Type']   = Rack::Mime.mime_type(".#{response[:type]}")
 
+      if @response['Content-Type'] == 'text/html'
+          @response['Content-Type'] << '; charset=UTF-8'
+      end
+
       # Set http cache headers
       @response['Cache-Control'] = if Toto.env == 'production'
         "public, max-age=#{@config[:cache]}"
